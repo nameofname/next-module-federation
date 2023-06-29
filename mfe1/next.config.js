@@ -11,10 +11,12 @@ module.exports = {
             new NextFederationPlugin({
                 name: 'mfe1',
                 filename: 'static/chunks/mfe1.js',
-                // shared: Object.keys(pac.dependencies), // TODO - validate dependency sharing between MFEs and app
                 exposes: {
-                    "./thingy": "./src/app/thingy"
+                    // "./thingy": "./src/app/MFE.tsx"
+                    // './nav': './components/nav.js',
+                    './thingy': './src/app/MFE.tsx',
                 },
+                // shared: Object.keys(pac.dependencies), // TODO - validate dependency sharing between MFEs and app
                 extraOptions: {
                     verbose: true,
                     automaticAsyncBoundary: true,
