@@ -1,5 +1,4 @@
 import dynamic from "next/dynamic"
-// const Mfe1 = dynamic(() => import("mfe1/thingy"), { ssr: false });
 const Mfe1 = dynamic(() => import("mfe1/thingy"));
 
 export default function Body() {
