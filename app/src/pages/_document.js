@@ -7,12 +7,11 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <meta name="robots" content="noindex" />
-          {/* <FlushedChunks chunks={this.props.chunks} /> */}
         </Head>
 
         <body className="bg-background-grey">
         <Main />
-        <NextScript />
+          <NextScript />
         </body>
       </Html>
     );
