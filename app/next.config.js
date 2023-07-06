@@ -14,9 +14,10 @@ module.exports = {
                   mfe1: `mfe1@http://localhost:3001/_next/static/${options.isServer ? 'ssr' : 'chunks'}/mfe1.js`,
                 },
                 // shared: Object.keys(pac.dependencies), // TODO - validate dependency sharing between MFEs and app
+                // shared: {},
                 extraOptions: {
-                    verbose: true,
                     automaticAsyncBoundary: true,
+                    exposePages: true
                 }
             })
         );
