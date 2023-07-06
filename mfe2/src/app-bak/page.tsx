@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div>
-        <h1>Sandbox for MFE</h1>
+        <h1>App Sandbox for MFE</h1>
         <Mfe2 />
       </div>
     </main>

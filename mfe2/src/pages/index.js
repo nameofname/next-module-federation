@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Mfe2 from '../mfe/Mfe2';
 
 const Home = ({loaded}) => {
   return (
@@ -8,7 +9,8 @@ const Home = ({loaded}) => {
       </Head>
 
       <div className="hero">
-      <h2>This is MFE 2</h2>
+      <h1>Pages Sandbox for MFE</h1>
+      <Mfe2 />
       </div>
     </div>
   );
