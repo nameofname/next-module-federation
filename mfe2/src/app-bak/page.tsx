@@ -1,12 +1,13 @@
+import React from "react";
 import styles from './page.module.css'
-import Mfe1 from '../mfe/Mfe1';
+import Mfe2 from '../mfe';
 
 export default function Home() {
   return (
     <main className={styles.main}>
       <div>
-        <h1>Sandbox for MFE</h1>
-        <Mfe1 />
+        <h1>App Sandbox for MFE</h1>
+        <Mfe2 />
       </div>
     </main>
   )

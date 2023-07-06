@@ -1,15 +1,28 @@
 "use client";
 
-// import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function ClientComponent() {    
-    // const [ count, updateCount ] = useState(0);
+    const [ data, setData ] = useState(null);
+    useEffect(() => {
+        if (data === null) {
+            // artificial throttle : 
+            setTimeout(() => {
+                fetch("https://jsonplaceholder.typicode.com/todos/1")
+                .then(data => data.json())
+                .then(setData);
+            }, 1000);
+        }
+    });
+
+    console.log('me data', data);
 
     return (
         <div style={{border: '1px solid red'}}>
             <i>client component </i>
-            {/* <p>current count: {count}</p>
-            <button onClick={() => updateCount(count + 1)}>juice it</button> */}
+            {
+                !data ? (<p>loading...</p>) : (<code>{JSON.stringify(data, null, 4)}</code>)
+            }
         </div>
     );
 }
