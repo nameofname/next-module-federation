@@ -2,6 +2,7 @@
 
 const NextFederationPlugin = require('@module-federation/nextjs-mf');
 const pac = require('./package.json');
+const { getSharedDeps } = require('../app/next.config');
 
 module.exports = {
     webpack(config, options) {
@@ -13,7 +14,7 @@ module.exports = {
                 exposes: {
                     './mfe': './src/mfe/index',
                 },
-                shared: Object.keys(pac.dependencies), // TODO - validate dependency sharing between MFEs and app
+                shared: getSharedDeps(pac),
                 extraOptions: {
                     automaticAsyncBoundary: true,
                     exposePages: true
