@@ -13,7 +13,7 @@ module.exports = {
                 exposes: {
                     './mfe': './src/mfe/index',
                 },
-                shared: Object.keys(pac.dependencies), // TODO - validate dependency sharing between MFEs and app
+                shared: Object.keys(pac.dependencies),
                 extraOptions: {
                     automaticAsyncBoundary: true,
                     exposePages: true
