@@ -1,9 +1,13 @@
-import { lazy } from "react"
+import { lazy, useState, createContext } from "react"
 import { Tooltip } from 'react-tooltip'
 const Mfe1 = lazy(() => import("mfe1/mfe"));
 const Mfe2 = lazy(() => import("mfe2/mfe"));
 
 const Home = ({loaded}) => {
+  // console.log('this is a thing happening: HOME');
+  // const [ fetches, addFetches ] = useState([]);
+  // const fetchContext = createContext({ fetches, addFetches });
+
   return (
     <div>
     <h1>This is the sample application</h1>
@@ -17,11 +21,12 @@ const Home = ({loaded}) => {
     <p>is there an MFE above this? heck yes there is!</p>
     <Mfe2 />
     <p>and yet again, you've been MFE'd</p>
-</div>
-);
+    </div>
+    );
 };
 
 Home.getInitialProps = async ctx => {
+  console.log('this is a thing happening: getInitialProps');
   return {};
 };
 
