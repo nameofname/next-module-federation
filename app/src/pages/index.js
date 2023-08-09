@@ -1,5 +1,6 @@
 import { lazy, useState, createContext } from "react"
 import { Tooltip } from 'react-tooltip'
+import PageState from 'pageState';
 const Mfe1 = lazy(() => import("mfe1/mfe"));
 const Mfe2 = lazy(() => import("mfe2/mfe"));
 
@@ -7,6 +8,7 @@ const Home = ({loaded}) => {
   // console.log('this is a thing happening: HOME');
   // const [ fetches, addFetches ] = useState([]);
   // const fetchContext = createContext({ fetches, addFetches });
+  const p = new PageState();
 
   return (
     <div>
@@ -17,7 +19,7 @@ const Home = ({loaded}) => {
     <Tooltip id="my-tooltip" />
     <p>below are the MFEs loaded via module federation : </p>
     <hr />
-    <Mfe1 />
+    <Mfe1 pageState={p} />
     <p>is there an MFE above this? heck yes there is!</p>
     <Mfe2 />
     <p>and yet again, you've been MFE'd</p>

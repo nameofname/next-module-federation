@@ -34,8 +34,8 @@ module.exports = {
                 name: 'exampleApp',
                 filename: 'static/chunks/app.js',
                 remotes: {
-                  mfe1: `mfe1@http://localhost:3001/_next/static/${options.isServer ? 'ssr' : 'chunks'}/mfe1.js`,
-                  mfe2: `mfe2@http://localhost:3002/_next/static/${options.isServer ? 'ssr' : 'chunks'}/mfe2.js`,
+                  mfe1: `mfe1@http://localhost:3001/static/${options.isServer ? 'ssr' : 'chunks'}/mfe1.js`,
+                  mfe2: `mfe2@http://localhost:3002/static/${options.isServer ? 'ssr' : 'chunks'}/mfe2.js`,
                 },
                 shared: getSharedDeps(pac),
                 extraOptions: {

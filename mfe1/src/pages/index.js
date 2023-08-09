@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import Mfe2 from '../mfe';
+import Mfe1 from '../mfe';
+import PageState from 'pageState';
 
 const Home = ({loaded}) => {
   return (
@@ -10,7 +11,7 @@ const Home = ({loaded}) => {
 
       <div className="hero">
       <h1>Pages Sandbox for MFE 1</h1>
-      <Mfe2 />
+      <Mfe1 pageState={new PageState()}/>
       </div>
     </div>
   );
