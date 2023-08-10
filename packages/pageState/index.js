@@ -14,8 +14,8 @@ const rand = Math.floor(Math.random() * 100);
 class PageState {
     constructor() {
         this.dataStore = {};
-        console.log('you at least have the thing', rand);
-        console.log('this is ur window', typeof window);
+        console.log('pageState: rand', rand);
+        console.log('pageState: window', typeof window);
     }
     fetch({ url, client }) {
         return __awaiter(this, void 0, void 0, function* () {

@@ -15,8 +15,8 @@ export default class PageState {
     private dataStore: DataStore = {};
 
     constructor() {
-        console.log('you at least have the thing', rand);
-        console.log('this is ur window', typeof window);    
+        console.log('pageState: rand', rand);
+        console.log('pageState: window', typeof window);    
     }
 
     async fetch({ url, client }: FetchProps) {

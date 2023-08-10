@@ -27,25 +27,29 @@ function getSharedDeps(packageJson) {
 }
 
 module.exports = {
-    webpack(config, options) {
-        Object.assign(config.experiments, { topLevelAwait: true });
-        config.plugins.push(
-            new NextFederationPlugin({
-                name: 'exampleApp',
-                filename: 'static/chunks/app.js',
-                remotes: {
-                  mfe1: `mfe1@http://localhost:3001/static/${options.isServer ? 'ssr' : 'chunks'}/mfe1.js`,
-                  mfe2: `mfe2@http://localhost:3002/static/${options.isServer ? 'ssr' : 'chunks'}/mfe2.js`,
-                },
-                shared: getSharedDeps(pac),
-                extraOptions: {
-                    automaticAsyncBoundary: true,
-                    exposePages: true
-                }
-            })
-        );
+    experimental: {
+        appDir: true,
+        serverComponents: true,
+    },    
+    // webpack(config, options) {
+    //     Object.assign(config.experiments, { topLevelAwait: true });
+    //     config.plugins.push(
+    //         new NextFederationPlugin({
+    //             name: 'exampleApp',
+    //             filename: 'static/chunks/app.js',
+    //             remotes: {
+    //               mfe1: `mfe1@http://localhost:3001/static/${options.isServer ? 'ssr' : 'chunks'}/mfe1.js`,
+    //               mfe2: `mfe2@http://localhost:3002/static/${options.isServer ? 'ssr' : 'chunks'}/mfe2.js`,
+    //             },
+    //             shared: getSharedDeps(pac),
+    //             extraOptions: {
+    //                 automaticAsyncBoundary: true,
+    //                 exposePages: true
+    //             }
+    //         })
+    //     );
     
-        return config;
-    }
+    //     return config;
+    // }
 };
 module.exports.getSharedDeps = getSharedDeps;
