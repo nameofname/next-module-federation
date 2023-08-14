@@ -1,10 +1,9 @@
 import { Tooltip } from 'react-tooltip'
 import loadMfe from '../utils/loadMfe';
 const Mfe1 = loadMfe(import('mfe1/mfe'));
-// const Mfe2 = loadMfe(import("mfe2/mfe"));
+const Mfe2 = loadMfe(import("mfe2/mfe"));
 
 const Home = (data) => {
-    console.log('what i think it is', Mfe1)
     return (
         <div>
             <h1>This is the sample application</h1>
@@ -19,6 +18,7 @@ const Home = (data) => {
             <h2>below are the MFEs loaded via module federation : </h2>
             <hr />
             <Mfe1 />
+            <Mfe2 />
         </div>
     );
 };
