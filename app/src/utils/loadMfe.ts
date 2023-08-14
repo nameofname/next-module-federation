@@ -5,9 +5,17 @@ type ModuleType = {
 }
 
 export default function loadMfe(importObj: Promise<ModuleType>): LazyExoticComponent<() => any> {
-    return lazy(async () => {
+    let def, Component;
+    const laz = lazy(async () => {
         const mfe = await importObj;
-        const Component = await mfe.default();
+        def = mfe.default;
+        Component = await def();
         return { default: () => Component };
     });
+    laz.refresh = async () => {
+        if (def) {
+            Component = await def();
+        }
+    }
+    return laz;
 }
