@@ -19,7 +19,9 @@ export default function MfeContainer({ data }: MfeContainerProps) {
             <h2>This is MFE 1</h2>
             <h2>Here is some fetched data : </h2>
             <code>{JSON.stringify(data)}</code>
-            <i data-tooltip-id="my-tooltip" data-tooltip-content="Tooltipz in ur eyez!">client component (tips have been toolified)</i>
+            <div>
+                <i data-tooltip-id="my-tooltip" data-tooltip-content="Tooltipz in ur eyez!">the tips have been toolified</i>
+            </div>
             <Tooltip id="my-tooltip" />
             <p>current count: {count}</p>
             <button onClick={() => updateCount(count + 1)}>juice it</button>
