@@ -12,7 +12,7 @@ module.exports = {
                 name: 'mfe1',
                 filename: 'static/chunks/mfe1.js',
                 exposes: {
-                    './mfe': './src/mfe/index',
+                    './mfe': './src/pages/index',
                 },
                 shared: getSharedDeps(pac),
                 extraOptions: {
