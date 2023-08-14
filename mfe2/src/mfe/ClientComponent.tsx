@@ -15,8 +15,6 @@ export default function ClientComponent() {
         }
     });
 
-    console.log('me data', data);
-
     return (
         <div style={{border: '1px solid red'}}>
             <i>client component </i>
