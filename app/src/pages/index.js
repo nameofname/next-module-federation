@@ -19,6 +19,7 @@ const Home = () => {
 
 export async function getServerSideProps(ctx) {
     await Mfe1.refresh();
+    await Mfe1.refresh();
     return { props: {}};
 };
 
