@@ -1,5 +1,5 @@
 const { getServerSideProps: fetchMfe1, Component: Mfe1 } = await import('mfe1/mfe');
-const { getServerSideProps: fetchMfe2, Component: Mfe2 } = await import('mfe1/mfe');
+const { getServerSideProps: fetchMfe2, Component: Mfe2 } = await import('mfe2/mfe');
 
 const Home = ({ mfe1Props, mfe2Props }) => {
     return (
