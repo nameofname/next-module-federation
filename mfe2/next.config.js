@@ -11,7 +11,7 @@ module.exports = {
                 name: 'mfe2',
                 filename: 'static/chunks/mfe2.js',
                 exposes: {
-                    './mfe': './src/mfe/index',
+                    './mfe': './src/pages/index',
                 },
                 shared: Object.keys(pac.dependencies),
                 extraOptions: {

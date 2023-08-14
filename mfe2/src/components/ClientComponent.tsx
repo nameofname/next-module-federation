@@ -8,7 +8,7 @@ export default function ClientComponent() {
         if (data === null) {
             // artificial throttle : 
             setTimeout(() => {
-                fetch("https://jsonplaceholder.typicode.com/todos/1")
+                fetch("https://jsonplaceholder.typicode.com/todos/3")
                 .then(data => data.json())
                 .then(setData);
             }, 1000);
@@ -17,7 +17,7 @@ export default function ClientComponent() {
 
     return (
         <div style={{border: '1px solid red'}}>
-            <i>client component </i>
+            <i>Here is client fetched data : </i>
             {
                 !data ? (<p>loading...</p>) : (<code>{JSON.stringify(data, null, 4)}</code>)
             }
