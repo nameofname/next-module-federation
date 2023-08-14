@@ -1,4 +1,4 @@
-import Mfe1 from '../components/Mfe1';
+import MfeContainer from '../components/MfeContainer';
 
 /**
  * This is the entry point for the MFE, it's coded like a React Server Component
@@ -10,5 +10,5 @@ export default async function() {
     let data = await fetch("https://jsonplaceholder.typicode.com/todos/1");
     data = await data.json();
     // console.log('MFE : fetch done', data);
-    return (<Mfe1 data={data} />);
+    return (<MfeContainer data={data} />);
 }

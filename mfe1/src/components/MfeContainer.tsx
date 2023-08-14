@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Tooltip } from 'react-tooltip'
 
 
-type Mfe1Props = {
+type MfeContainerProps = {
     data : any;
 }
 
@@ -11,7 +11,7 @@ type Mfe1Props = {
  * This is a server component, so no interactivity can be programmed at this level
  * @returns 
  */
-export default function Mfe1({ data }: Mfe1Props) {
+export default function MfeContainer({ data }: MfeContainerProps) {
     const [ count, updateCount ] = useState(0);
 
     return (

@@ -1,12 +1,7 @@
-import { lazy } from "react"
 import { Tooltip } from 'react-tooltip'
-const Mfe2 = lazy(() => import("mfe2/mfe"));
-// const Mfe1 = lazy(() => import("mfe1/mfe"));
-const Mfe1 = lazy(async () => {
-    const mfe = await import("mfe1/mfe");
-    const Component = await mfe.default();
-    return { default: () => Component };
-});
+import loadMfe from '../utils/loadMfe';
+const Mfe1 = loadMfe(import('mfe1/mfe'));
+const Mfe2 = loadMfe(import("mfe2/mfe"));
 
 const Home = (data) => {
     return (
@@ -30,10 +25,7 @@ const Home = (data) => {
 
 export async function getServerSideProps(ctx) {
     let data = await fetch("https://jsonplaceholder.typicode.com/todos/1");
-    data = await data.json();
-    // console.log('ronalding', Mfe1);
-    // await Mfe1.getServerSideProps();
-    return { props: data };
+    return { props: await data.json() };
 };
 
 export default Home;
