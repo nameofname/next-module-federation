@@ -8,6 +8,6 @@ import MfeContainer from '../components/MfeContainer';
  */
 export default async function() {
     let data = await fetch("https://jsonplaceholder.typicode.com/todos/1");
-    console.log('fetched it!!! Mfe1!')
+    // console.log('fetched it!!! Mfe1!')
     return (<MfeContainer data={await data.json()} />);
 }
