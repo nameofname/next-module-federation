@@ -48,4 +48,3 @@ module.exports = {
         return config;
     }
 };
-module.exports.getSharedDeps = getSharedDeps;

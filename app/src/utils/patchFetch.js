@@ -17,7 +17,7 @@ let done = false;
 
 export default function patchFetch() {
     if (done) return;
-    const coreFetch = fetch;
+    const coreFetch = globalThis.fetch;
 
     globalThis.fetch = function(resource, options = {}) {
         const notGet = options?.method && options.method !== 'GET';
@@ -37,8 +37,51 @@ export default function patchFetch() {
             return cached;
         } else {
             const res = coreFetch.apply(globalThis, arguments);
-            store.set(url, res);
-            return res;
+            const wrapped = new FetchWrapper(res);
+            store.set(url, wrapped);
+            return wrapped;
         }
     }
+}
+
+/**
+ * Fetch wrapper allows multiple callers to execute 
+ * await res.json() or await res.text() 
+ * ... otherwise Node will throw an error. Eg. try the following : 
+ * const res = fetch('...');
+ * let j = await res.json();
+ * let k = await res.json(); // Error
+ */
+class FetchWrapper extends Response() {
+    originText;
+    originJson;
+
+    constructor(res) {
+        super(res);
+        this.originJson = this.json;
+        this.originText = this.text;
+        this.json = this._overRideJson;
+        this.text = this._overRideText;
+    }
+
+    _overRideJson = async function() {
+        let json;
+        return new Promise(async (resolve) => {
+            if (!json) {
+                json = await this.originJson();
+            }
+            resolve(json);
+        });
+    }
+
+    _overRideText = function() {
+        let text;
+        return new Promise(async (resolve) => {
+            if (!text) {
+                text = await this.originText();
+            }
+            resolve(text);
+        });
+    }
+
 }
