@@ -1,8 +1,9 @@
 import MfeContainer from '../components/MfeContainer';
 
 export async function getServerSideProps() {
-    let data = await fetch("https://jsonplaceholder.typicode.com/todos/1");
     console.log('Mfe1 : fetching');
+    let data = await fetch("http://localhost:5555/two.json", { cache: 'force-cache' });
+    console.log('Mfe1 : DONE fetching');
     return await data.json();
 }
 

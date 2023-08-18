@@ -1,5 +1,30 @@
+import { patchFetch } from 'next/dist/server/lib/patch-fetch.js';
+// import * as serverHooks from 'next/src/client/components/hooks-server-context.ts';
+// import { DynamicServerError } from 'next/src/client/components/hooks-server-context.ts';
+// import serverHooks from 'next/dist/client/components/hooks-server-context';
+import { DynamicServerError } from 'next/dist/client/components/hooks-server-context';
+// import { staticGenerationAsyncStorage } from 'next/src/client/components/static-generation-async-storage.ts';
+// import { staticGenerationAsyncStorage } from 'next/dist/client/components/static-generation-async-storage.js';
+import { AsyncLocalStorage } from 'node:async_hooks';
+
 const { getServerSideProps: fetchMfe1, Component: Mfe1 } = await import('mfe1/mfe');
 const { getServerSideProps: fetchMfe2, Component: Mfe2 } = await import('mfe2/mfe');
+
+
+const staticGenerationAsyncStorage = {
+    getStore: () => AsyncLocalStorage
+};
+
+function patchFetchApp() {
+    console.log('attempt to patch fetch', staticGenerationAsyncStorage);
+    patchFetch({
+        serverHooks: { DynamicServerError },
+        staticGenerationAsyncStorage
+    });
+    // console.log('SUCCESS !!! patch fetch');
+}
+
+patchFetchApp();
 
 const Home = ({ mfe1Props, mfe2Props }) => {
     return (
