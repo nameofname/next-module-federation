@@ -2,8 +2,6 @@ import patchFetch from '../utils/patchFetch';
 const { getServerSideProps: fetchMfe1, Component: Mfe1 } = await import('mfe1/mfe');
 const { getServerSideProps: fetchMfe2, Component: Mfe2 } = await import('mfe2/mfe');
 
-patchFetch();
-
 const Home = ({ mfe1Props, mfe2Props }) => {
     return (
         <div>
@@ -20,6 +18,7 @@ const Home = ({ mfe1Props, mfe2Props }) => {
 };
 
 export async function getServerSideProps(ctx) {
+    patchFetch();
     const mfe1Props = await fetchMfe1();
     const mfe2Props = await fetchMfe2();
     return { props: { mfe1Props, mfe2Props }};
