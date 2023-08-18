@@ -19,7 +19,7 @@ export default function patchFetch() {
     if (done) return;
     const coreFetch = globalThis.fetch;
 
-    globalThis.fetch = function(resource, options = {}) {
+    globalThis.fetch = async function(resource, options = {}) {
         const notGet = options?.method && options.method !== 'GET';
         if (notGet) {
             return coreFetch.apply(globalThis, arguments);
@@ -36,52 +36,89 @@ export default function patchFetch() {
         if (cached) {
             return cached;
         } else {
-            const res = coreFetch.apply(globalThis, arguments);
-            const wrapped = new FetchWrapper(res);
+            const res = await coreFetch.apply(globalThis, arguments);
+            // console.log('caching core fetch', res);
+            const wrapped = wrapResponse(res);
             store.set(url, wrapped);
             return wrapped;
         }
     }
 }
 
-/**
- * Fetch wrapper allows multiple callers to execute 
- * await res.json() or await res.text() 
- * ... otherwise Node will throw an error. Eg. try the following : 
- * const res = fetch('...');
- * let j = await res.json();
- * let k = await res.json(); // Error
- */
-class FetchWrapper extends Response() {
-    originText;
-    originJson;
-
-    constructor(res) {
-        super(res);
-        this.originJson = this.json;
-        this.originText = this.text;
-        this.json = this._overRideJson;
-        this.text = this._overRideText;
+function CacherFn(response, prop) {
+    let cache;
+    return async function() {
+        console.log('retreiving value for', prop);
+        if(cache) {
+            return cache;
+        }
+        console.log('generating for prop...', prop);
+        cache = await response[prop](...arguments);
+        return cache;
     }
-
-    _overRideJson = async function() {
-        let json;
-        return new Promise(async (resolve) => {
-            if (!json) {
-                json = await this.originJson();
-            }
-            resolve(json);
-        });
-    }
-
-    _overRideText = function() {
-        let text;
-        return new Promise(async (resolve) => {
-            if (!text) {
-                text = await this.originText();
-            }
-            resolve(text);
-        });
-    }
-
 }
+
+function wrapResponse(response) {
+    const cacherCache = {};
+    const handler = {
+        get(target, prop, receiver) {
+            console.log('what is this symbol', prop)
+            if ('json' === prop || 'text' === prop) {
+                if (!cacherCache[prop]) {
+                    cacherCache[prop] = new CacherFn(response, prop);
+                }
+                return cacherCache[prop];
+            }
+            return response[prop];
+        },
+    };
+    return new Proxy(response, handler);
+}
+
+// /**
+//  * Fetch wrapper allows multiple callers to execute 
+//  * await res.json() or await res.text() 
+//  * ... otherwise Node will throw an error. Eg. try the following : 
+//  * const res = fetch('...');
+//  * let j = await res.json();
+//  * let k = await res.json(); // Error
+//  */
+// class FetchWrapper extends Response {
+//     originText;
+//     originJson;
+
+//     constructor(response) {
+//         console.log('constructor... supering');
+//         super();
+//         for (let i in response) {
+//             this[i] = response[i];
+//         }
+//         console.log('super complete, what is this', this);
+//         this.originJson = this.json;
+//         this.originText = this.text;
+//         this.json = this._overRideJson;
+//         this.text = this._overRideText;
+//     }
+
+//     _overRideJson = async function() {
+//         let json;
+//         return new Promise(async (resolve) => {
+//             if (!json) {
+//                 json = await this.originJson();
+//                 console.log('got ur json here', json)
+//             }
+//             resolve(json);
+//         });
+//     }
+
+//     _overRideText = function() {
+//         // let text;
+//         // return new Promise(async (resolve) => {
+//         //     if (!text) {
+//         //         text = await this.originText();
+//         //     }
+//         //     resolve(text);
+//         // });
+//     }
+
+// }
