@@ -46,5 +46,8 @@ module.exports = {
         );
     
         return config;
-    }
+    },
+
+    // temporary - abstract into shared location.
+    getSharedDeps
 };

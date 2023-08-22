@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 
 export default function Mfe2Container({ data }) {
     const [ clientData, setData ] = useState(null);
+    const [ counter, setCount ] = useState(0);
+
     useEffect(() => {
         if (clientData === null) {
             // artificial throttle : 
@@ -25,6 +27,7 @@ export default function Mfe2Container({ data }) {
                     !clientData ? (<p>loading...</p>) : (<code>{JSON.stringify(clientData, null, 4)}</code>)
                 }
             </div>
+            <button onClick={() => setCount(counter + 1)}>Increment count {counter}</button>
         </main>
     )
 }
