@@ -12,7 +12,39 @@
 // console.log('Mfe2 : DONE fetching');
 // await serverSideData.json();
 
+type Method = 'json' | 'text';
 
+class MethodCacher {
+    method: Method;
+    response: Response;
+    cached: Promise<any> | null;
+
+    constructor(response: Response, method: Method) {
+        this.method = method;
+        this.response = response;
+        this.cached = null;
+    }
+
+    _jsonOrText() {
+        if (this.cached === null) {
+            this.cached = this.response[this.method]();
+        }
+        return this.cached;
+    }
+
+    json() {
+        return this._jsonOrText();
+    }
+    text() {
+        return this._jsonOrText();
+    }
+}
+
+
+/**
+ * 
+ * The following works but classes > constructors in TS
+ * 
 function CacherFn() {
     cache = {};
     return function(prop) {
@@ -37,3 +69,4 @@ cacher('a')
 cacher('a')
 cacher('b')
 cacher('b')
+ */

@@ -15,7 +15,7 @@
 const store = new Map();
 let done = false;
 
-export default function patchFetch() {
+export function patchFetch() {
     if (done) return;
     const coreFetch = globalThis.fetch;
 
@@ -36,13 +36,17 @@ export default function patchFetch() {
         if (cached) {
             return cached;
         } else {
+            console.log('caching core fetch...');
             const res = await coreFetch.apply(globalThis, arguments);
-            // console.log('caching core fetch', res);
             const wrapped = wrapResponse(res);
             store.set(url, wrapped);
             return wrapped;
         }
     }
+}
+
+export function clearFetchCache() {
+    store.clear();
 }
 
 function CacherFn(response, prop) {
@@ -59,15 +63,17 @@ function CacherFn(response, prop) {
 }
 
 function wrapResponse(response) {
-    const cacherCache = {};
+    const jsonTextCache = {};
     const handler = {
-        get(target, prop, receiver) {
+        get(target, prop) {
             console.log('what is this symbol', prop)
             if ('json' === prop || 'text' === prop) {
-                if (!cacherCache[prop]) {
-                    cacherCache[prop] = new CacherFn(response, prop);
+                return () => {
+                    if (!jsonTextCache[prop]) {
+                        jsonTextCache[prop] = response[prop]();
+                    }
+                    return jsonTextCache[prop];
                 }
-                return cacherCache[prop];
             }
             return response[prop];
         },
