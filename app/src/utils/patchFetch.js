@@ -36,7 +36,6 @@ export function patchFetch() {
         if (cached) {
             return cached;
         } else {
-            console.log('caching core fetch...');
             const res = await coreFetch.apply(globalThis, arguments);
             const wrapped = wrapResponse(res);
             store.set(url, wrapped);
@@ -49,24 +48,10 @@ export function clearFetchCache() {
     store.clear();
 }
 
-function CacherFn(response, prop) {
-    let cache;
-    return async function() {
-        console.log('retreiving value for', prop);
-        if(cache) {
-            return cache;
-        }
-        console.log('generating for prop...', prop);
-        cache = await response[prop](...arguments);
-        return cache;
-    }
-}
-
 function wrapResponse(response) {
     const jsonTextCache = {};
     const handler = {
         get(target, prop) {
-            console.log('what is this symbol', prop)
             if ('json' === prop || 'text' === prop) {
                 return () => {
                     if (!jsonTextCache[prop]) {
@@ -80,6 +65,21 @@ function wrapResponse(response) {
     };
     return new Proxy(response, handler);
 }
+
+/**
+ * Ended up not using this for simplicity
+function CacherFn(response, prop) {
+    let cache;
+    return async function() {
+        if(cache) {
+            return cache;
+        }
+        cache = await response[prop](...arguments);
+        return cache;
+    }
+}
+*/
+
 
 // /**
 //  * Fetch wrapper allows multiple callers to execute 
