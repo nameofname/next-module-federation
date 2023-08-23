@@ -1,19 +1,17 @@
 import {patchFetch, clearFetchCache} from '../utils/patchFetch';
 
-export default function bootstrapPage(mfes){
+export default function bootstrapPage(mfes) {
     const prefetched = {};
     const components = Object.keys(mfes).reduce((acc, key) => {
         return {...acc, [key]: mfes[key].default.Component};
     }, {});
 
     const InjectMfe = ({ mfeKey, prefetchedData }) => {
-        console.log('injecting mfe with key and data', mfeKey, prefetched[mfeKey]);
         const Comp = components[mfeKey];
         return (<Comp data={prefetchedData[mfeKey]} />);
     }
 
     async function runDataPrefetchers() {
-        console.log('running data prefetchers');
         patchFetch();
 
         // run all fetches in parallel wint Promise.all
@@ -34,7 +32,6 @@ export default function bootstrapPage(mfes){
             resolve();
         })))
         
-        console.log('data prefetchers done, clearing cache.', prefetched);
         clearFetchCache();
         return prefetched;
     }
