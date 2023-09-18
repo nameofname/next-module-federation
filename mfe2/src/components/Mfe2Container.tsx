@@ -9,7 +9,7 @@ export default function Mfe2Container({ data }) {
         if (clientData === null) {
             // artificial throttle : 
             setTimeout(() => {
-                fetch("https://jsonplaceholder.typicode.com/todos/3")
+                fetch("http://localhost:5555/three.json")
                 .then(data => data.json())
                 .then(setData);
             }, 1000);
