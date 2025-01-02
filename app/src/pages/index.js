@@ -9,7 +9,7 @@ const Home = (data) => {
         <div>
             <h1>This is the sample application</h1>
             <div style={{border: '1px solid red', width: '10px', height: '10px', float: 'left'}}></div>
-            <p>Here's a tiny red square.</p>
+            <p>Here's a tiny red squaresssssronaldy.</p>
             <hr />
             <h2>below are the MFEs loaded via module federation : </h2>
             <hr />

@@ -36,6 +36,7 @@ export function patchFetch() {
         if (cached) {
             return cached;
         } else {
+            console.log('fetching', arguments)
             const res = await coreFetch.apply(globalThis, arguments);
             const wrapped = wrapResponse(res);
             store.set(url, wrapped);

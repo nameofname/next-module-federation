@@ -2,7 +2,7 @@ import MfeContainer from '../components/MfeContainer';
 
 async function preFetchData() {
     console.log('Mfe1 : fetching');
-    let data = await fetch("http://localhost:5555/two.json");
+    let data = await fetch("https://jsonplaceholder.typicode.com/todos/2");
     console.log('Mfe1 : DONE fetching');
     const json = await data.json();
     // console.log('json response', json);
