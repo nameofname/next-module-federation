@@ -16,7 +16,7 @@ export default function MfeContainer({ data }: MfeContainerProps) {
 
     return (
         <main style={{border: '1px solid green'}}>
-            <h2>This is MFE 12</h2>
+            <h2>This is MFE 1</h2>
             <h2>Here is some fetched data : </h2>
             <code>{JSON.stringify(data)}</code>
             <div>
