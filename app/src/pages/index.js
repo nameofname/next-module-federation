@@ -3,10 +3,6 @@ const mfe1 = await import('mfe1/mfe');
 const mfe2 = await import('mfe2/mfe');
 const exposedAdder = (await import('mfe1/exposedAdder')).default;
 
-// console.log('exposedAdder', exposedAdder)
-// console.log('exposedAdder', exposedAdder?.default)
-// console.log('exposedAdder', exposedAdder.default(1,2))
-
 const { InjectMfe, runDataPrefetchers } = bootstrapPage({ mfe1, mfe2 });
 
 const Home = (data) => {
