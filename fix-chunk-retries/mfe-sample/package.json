@@ -1,0 +1,33 @@
+{
+  "name": "fix-chunk-retries/mfe-sample",
+  "version": "1.0.0",
+  "description": "sample next app for testing",
+  "scripts": {
+    "dev": "rimraf .next && NODE_OPTIONS='NEXT_PRIVATE_LOCAL_WEBPACK=true' next dev -p 3001",
+    "build": "rimraf .next && NEXT_PRIVATE_LOCAL_WEBPACK=true next build && npm run copyAssets",
+    "copyAssets": "mkdir -p build/_next build/_next/compiled-assets && cp -R .next/static build/_next/.",
+    "start": "node shareAssets.js",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "next": "14.1.4",
+    "react": "^18",
+    "react-dom": "^18",
+    "tough-cookie": "^5.1.1",
+    "underscore": "^1.13.7"
+  },
+  "devDependencies": {
+    "@module-federation/nextjs-mf": "8.6.4",
+    "@module-federation/node": "2.6.33",
+    "@module-federation/runtime": "0.6.11",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.15",
+    "rimraf": "^6.0.1",
+    "typescript": "^5",
+    "webpack": "^5.98.0"
+  }
+}

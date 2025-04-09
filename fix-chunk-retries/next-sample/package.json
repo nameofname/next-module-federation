@@ -1,0 +1,37 @@
+{
+  "name": "fix-chunk-retries/next-dyanmic-sample",
+  "version": "1.0.0",
+  "description": "sample next app for testing",
+  "scripts": {
+    "build": "rimraf .next && NEXT_PRIVATE_LOCAL_WEBPACK=true next build",
+    "build:non-standalone": "rimraf .next && next build",
+    "dev": "rimraf .next && export NODE_OPTIONS='--inspect=9231' NEXT_PRIVATE_LOCAL_WEBPACK=true && NODE_ENV=development next dev",
+    "lint": "next lint",
+    "start": "export NODE_OPTIONS='--inspect=9231' NODE_ENV=development STAGE=beta AWS_REGION=us-east-1 NEXT_PRIVATE_LOCAL_WEBPACK=true && next start",
+    "start:non-standalone": "export NODE_OPTIONS='--inspect=9231' NODE_ENV=development STAGE=beta AWS_REGION=us-east-1 NEXT_PRIVATE_LOCAL_WEBPACK=true && next start"
+  },
+  "dependencies": {
+    "@module-federation/nextjs-mf": "8.6.4",
+    "@module-federation/node": "2.6.33",
+    "@module-federation/runtime": "0.6.11",
+    "next": "14.1.4",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.15",
+    "rimraf": "^6.0.1",
+    "typescript": "^5",
+    "webpack": "^5.98.0"
+  },
+  "npm-pretty-much": {
+    "useWorkspaces": "true"
+  },
+  "workspaces": [
+    "../../../universe/packages/node"
+  ]
+}
