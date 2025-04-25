@@ -10,6 +10,6 @@ npm run build
 npm run start
 cd ../next-sample
 npm install
-npm dev
+npm run dev
 ```
 Then navigate to http://localhost:3000/dynamic/114/mfe
